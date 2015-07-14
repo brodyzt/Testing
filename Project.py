@@ -1,5 +1,4 @@
-list = [1,2,3,4]
-list.pop()
-print(list)
+list = ['h','e','l','l','o']
 
-test = print()
+for char in list:
+    print(char)
