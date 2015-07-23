@@ -3,7 +3,7 @@ import time
 
 def calculateRunTime(function, *args):
     startTime = time.time()
-    for x in range(10**5):
+    for x in range(10**3):
         result = function(*args)
     return time.time() - startTime
 
@@ -22,9 +22,7 @@ def bubble_sort(list):
         is_sorted = True
         for x in range(len(list) - 1):
             if(list[x] > list[x+1]):
-                temp = list[x]
-                list[x] = list[x+1]
-                list[x+1] = temp
+                list[x],list[x+1]=list[x+1],list[x]
                 is_sorted = False
     return list
 
@@ -36,9 +34,7 @@ def selection_sort(list):
             if list[y] < temp_lowest:
                 temp_lowest = list[y]
                 temp_lowest_location = y
-        temp = list[x]
-        list[x] = list[temp_lowest_location]
-        list[temp_lowest_location] = temp
+        list[x],list[temp_lowest_location]=list[temp_lowest_location],list[x]
     return list
 
 def insertion_sort(list): # fix this
@@ -54,7 +50,34 @@ def insertion_sort(list): # fix this
         temp_list.append(list[min_loc])
         list.pop(min_loc)
     return temp_list
-
+counter = 0
+def merge_sort(input_list):
+    if len(input_list) == 1:
+        return [input_list, 1]
+    else:
+        middle = len(input_list) // 2
+        left_data = merge_sort(input_list[:middle])
+        left = left_data[0]
+        right_data = merge_sort(input_list[middle:len(input_list)])
+        right = right_data[0]
+        result = [0 for x in range(len(input_list))]
+        counter = left_data[1] + right_data[1]
+        l_counter = 0
+        r_counter = 0
+        for m_counter in range(len(input_list)):
+            if l_counter == len(left):
+                result[m_counter] = right[r_counter]
+                r_counter += 1
+            elif r_counter == len(right):
+                result[m_counter] = left[l_counter]
+                l_counter += 1
+            elif left[l_counter] < right[r_counter]:
+                result[m_counter] = left[l_counter]
+                l_counter += 1
+            else:
+                result[m_counter] = right[r_counter]
+                r_counter += 1
+        return [result, counter]
 
 print('Bubble Sort List: ' + str(bubble_sort(list)))
 print('Time: {}\n'.format(calculateRunTime(bubble_sort, list)))
@@ -64,3 +87,6 @@ print('Time: {}\n'.format(calculateRunTime(selection_sort, list)))
 
 print('Insertion Sort List: ' + str(insertion_sort(list)))
 print('Time: {}\n'.format(calculateRunTime(insertion_sort, list)))
+
+print('Merge Sort List: ' + str(merge_sort(list)))
+#print('Time: {}\n'.format(calculateRunTime(merge_sort, list)))

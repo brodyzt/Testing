@@ -1,4 +1,4 @@
-__author__ = 'brodyzt'
+'''__author__ = 'brodyzt'
 
 class Car:
     def __init__(self):
@@ -10,4 +10,14 @@ class Car:
 
 myCar = Car()
 myCar.color = "Red"
-myCar.printColor()
+myCar.printColor()'''
+
+class Test:
+    def __init__(self):
+        self.structure = [1,2,3,4,5]
+
+    def __iter__(self):
+        return self.structure
+
+mine = Test()
+print()
